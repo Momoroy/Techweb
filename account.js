@@ -1,7 +1,7 @@
 
 
 function insertData(){
-    var u= document.getElementById("user").value;
+    var u= document.getElementById("user").value;  
     var m= document.getElementById("mail").value;
     var p= document.getElementById("pass").value;
    // console.log(u);
@@ -20,16 +20,16 @@ function insertMore(){
   // console.log(g);
 }
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var MongoClient = require('mongodb').MongoClient;   //crea collegamento tra javascript e mongodb
+var url = "mongodb://localhost:27017/";             // connette con il database sulla macchina locale, quindi se usi questo url puoi aggiungere cose solo sul tuo computer
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, db) {         //funzione per aggiungere dati sul db
   if (err) throw err;
-  var dbo = db.db("mydb");
-  var myobj = { username: u, mail: m, password: p };
-  dbo.collection("customers").insertOne(myobj, function(err, res) {
+  var dbo = db.db("project");                           //nome del database che usiamo (quello tra parentesi, cioè il project)
+  var myobj = { username: u, mail: m, password: p };    //lista di valori da inserire, prima dei due punti è il nome del campo, dopo il valore
+  dbo.collection("customers").insertOne(myobj, function(err, res) {          //scegliamo la collezzione a cui aggiungere, poi usiamo insertone che serve per inserire un valore singolo
     if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
+    console.log("1 document inserted");                           
+    db.close();       
   });
 });
